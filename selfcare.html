@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Self-Care Routine</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+<style>
+body {
+    font-family: 'Nunito', sans-serif;
+    background: linear-gradient(135deg, #cce7ff, #f7f2ff);
+    margin: 0;
+    padding: 0;
+    color: #333;
+    overflow-x: hidden;
+}
+
+header {
+    text-align: center;
+    background: #4a148c;
+    color: white;
+    padding: 20px;
+    font-size: 2.2rem;
+    border-bottom: 6px solid #6a1b9a;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.container {
+    max-width: 1000px;
+    margin: auto;
+    padding: 20px;
+}
+
+.routine-item {
+    background: rgba(255,255,255,0.9);
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.routine-item h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: #4a148c;
+}
+
+.time-label {
+    font-size: 0.9rem;
+    color: #6a1b9a;
+    font-weight: bold;
+}
+
+.timer {
+    font-size: 1.3rem;
+    margin: 10px 0;
+    color: #333;
+}
+
+button {
+    padding: 8px 15px;
+    margin: 5px;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    background-color: #4a148c;
+    color: white;
+    transition: background 0.3s ease;
+}
+
+button:hover {
+    background-color: #6a1b9a;
+}
+
+.note {
+    font-size: 0.9rem;
+    color: #555;
+    margin-top: 5px;
+}
+</style>
+</head>
+<body>
+<a href="firstpage.html" class="back-link" style="background:#4a148c; color:white; padding:10px 15px; border-radius:8px; text-decoration:none;">⬅ Back to Home</a>
+
+<header>💖 Daily Self-Care Routine</header>
+
+<div class="container">
+    <div class="routine-item" data-time="300">
+        <h2>☀️ Morning Meditation <span class="time-label">(7:00 AM)</span></h2>
+        <div class="timer">05:00</div>
+        <button class="start">Start</button>
+        <button class="pause">Pause</button>
+        <button class="reset">Reset</button>
+        <p class="note">A short meditation to start your day calmly.</p>
+    </div>
+
+    <div class="routine-item" data-time="900">
+        <h2>🚶 Gentle Walk <span class="time-label">(7:30 AM)</span></h2>
+        <div class="timer">15:00</div>
+        <button class="start">Start</button>
+        <button class="pause">Pause</button>
+        <button class="reset">Reset</button>
+        <p class="note">Move your body at a comfortable pace.</p>
+    </div>
+
+    <div class="routine-item" data-time="1800">
+        <h2>🥗 Healthy Breakfast <span class="time-label">(8:00 AM)</span></h2>
+        <div class="timer">30:00</div>
+        <button class="start">Start</button>
+        <button class="pause">Pause</button>
+        <button class="reset">Reset</button>
+        <p class="note">Enjoy a nourishing meal without rushing.</p>
+    </div>
+
+    <div class="routine-item" data-time="1200">
+        <h2>📖 Reading Time <span class="time-label">(9:00 AM)</span></h2>
+        <div class="timer">20:00</div>
+        <button class="start">Start</button>
+        <button class="pause">Pause</button>
+        <button class="reset">Reset</button>
+        <p class="note">Read something that brings you joy.</p>
+    </div>
+
+    <div class="routine-item" data-time="1800">
+        <h2>🥗 Healthy Lunch <span class="time-label">(1:30 PM)</span></h2>
+        <div class="timer">30:00</div>
+        <button class="start">Start</button>
+        <button class="pause">Pause</button>
+        <button class="reset">Reset</button>
+        <p class="note">Enjoy a nourishing meal without rushing.</p>
+    </div>
+
+    <div class="routine-item" data-time="2400">
+        <h2>🛌 Power Nap <span class="time-label">(2:00 PM)</span></h2>
+        <div class="timer">40:00</div>
+        <button class="start">Start</button>
+        <button class="pause">Pause</button>
+        <button class="reset">Reset</button>
+        <p class="note">Recharge your mind and body with a short rest.</p>
+    </div>
+
+    <div class="routine-item" data-time="1200">
+        <h2>🧘 Evening Yoga <span class="time-label">(6:00 PM)</span></h2>
+        <div class="timer">20:00</div>
+        <button class="start">Start</button>
+        <button class="pause">Pause</button>
+        <button class="reset">Reset</button>
+        <p class="note">Stretch and relax your muscles after the day.</p>
+    </div>
+
+    <div class="routine-item" data-time="2400">
+        <h2>🍽 Dinner <span class="time-label">(7:40 PM)</span></h2>
+        <div class="timer">40:00</div>
+        <button class="start">Start</button>
+        <button class="pause">Pause</button>
+        <button class="reset">Reset</button>
+        <p class="note">Enjoy a calm, unrushed meal.</p>
+    </div>
+
+    <div class="routine-item" data-time="1800">
+        <h2>🌙 Gratitude Journaling <span class="time-label">(9:00 PM)</span></h2>
+        <div class="timer">30:00</div>
+        <button class="start">Start</button>
+        <button class="pause">Pause</button>
+        <button class="reset">Reset</button>
+        <p class="note">Write down three things you’re grateful for today.</p>
+    </div>
+</div>
+<!-- Chime sound -->
+<audio id="chime-sound" src="https://actions.google.com/sounds/v1/alarms/beep_short.ogg" preload="auto"></audio>
+
+<script>
+document.querySelectorAll(".routine-item").forEach(item => {
+    let timerDisplay = item.querySelector(".timer");
+    let startBtn = item.querySelector(".start");
+    let pauseBtn = item.querySelector(".pause");
+    let resetBtn = item.querySelector(".reset");
+    let chime = document.getElementById("chime-sound");
+
+    let totalSeconds = parseInt(item.getAttribute("data-time"));
+    let remainingSeconds = totalSeconds;
+    let interval = null;
+
+    function updateDisplay() {
+        let minutes = Math.floor(remainingSeconds / 60);
+        let seconds = remainingSeconds % 60;
+        timerDisplay.textContent = 
+            String(minutes).padStart(2, '0') + ":" + String(seconds).padStart(2, '0');
+    }
+
+    startBtn.addEventListener("click", () => {
+        if (!interval) {
+            interval = setInterval(() => {
+                if (remainingSeconds > 0) {
+                    remainingSeconds--;
+                    updateDisplay();
+                } else {
+                    clearInterval(interval);
+                    interval = null;
+                    chime.play();
+                    alert(item.querySelector("h2").textContent + " complete!");
+                }
+            }, 1000);
+        }
+    });
+
+    pauseBtn.addEventListener("click", () => {
+        clearInterval(interval);
+        interval = null;
+    });
+
+    resetBtn.addEventListener("click", () => {
+        clearInterval(interval);
+        interval = null;
+        remainingSeconds = totalSeconds;
+        updateDisplay();
+    });
+
+    updateDisplay();
+});
+</script>
+
+</body>
+</html>

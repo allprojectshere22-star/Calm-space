@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Weekly Planner</title>
+<style>
+    body {
+        font-family: 'Segoe UI', sans-serif;
+        background: linear-gradient(135deg, #cce7ff, #f7f2ff);
+        margin: 0;
+        padding: 20px;
+        color: #333;
+    }
+
+    h1 {
+        text-align: center;
+        color: #4a148c;
+        margin-bottom: 20px;
+        font-size: 2.5rem;
+    }
+
+    .planner {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 15px;
+    }
+
+    .day-card {
+        background-color: #ffffffcc;
+        border-radius: 15px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        padding: 15px;
+        transition: transform 0.2s ease;
+    }
+
+    .day-card:hover {
+        transform: translateY(-5px);
+    }
+
+    .day-card h2 {
+        text-align: center;
+        font-size: 1.5rem;
+        color: #fff;
+        background-color: #4a148c;
+        border-radius: 10px;
+        padding: 8px;
+        margin-top: 0;
+    }
+
+    .task-list {
+        list-style: none;
+        padding: 0;
+        margin-top: 10px;
+    }
+
+    .task {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: #e1bee7;
+        padding: 8px;
+        margin: 5px 0;
+        border-radius: 8px;
+    }
+
+    .task.done {
+        background: #c8e6c9;
+        text-decoration: line-through;
+        color: #555;
+    }
+
+    .task input[type="checkbox"] {
+        margin-right: 10px;
+        transform: scale(1.3);
+    }
+
+    .delete-btn {
+        background: #ff4d4d;
+        border: none;
+        color: white;
+        padding: 4px 8px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 0.9rem;
+    }
+
+    .delete-btn:hover {
+        background: #e60000;
+    }
+
+    .add-task {
+        display: flex;
+        margin-top: 10px;
+    }
+
+    .add-task input {
+        flex: 1;
+        padding: 8px;
+        border-radius: 8px 0 0 8px;
+        border: 2px solid #4a148c;
+        outline: none;
+    }
+
+    .add-task button {
+        padding: 8px 12px;
+        background-color: #4a148c;
+        color: white;
+        border: none;
+        cursor: pointer;
+        border-radius: 0 8px 8px 0;
+    }
+
+    .add-task button:hover {
+        background-color: #6a1b9a;
+    }
+
+    /* Highlight current day */
+    .current-day {
+        border: 5px solid #961567;
+        box-shadow: 0 0 15px rgba(101, 186, 255, 0.7);
+    }
+</style>
+</head>
+<body>
+<a href="firstpage.html" class="back-link" style="background:#4a148c; color:white; padding:10px 15px; border-radius:8px; text-decoration:none;">⬅ Back to Home</a>
+
+<h1>Weekly Planner</h1>
+<div class="planner" id="planner"></div>
+<div style="text-align:center; margin-bottom:20px;">
+    <a href="notes.html" style="background:#4a148c; color:white; padding:10px 15px; border-radius:8px; text-decoration:none;">Go to Notes & Reminders</a>
+</div>
+<script>
+const daysOfWeek = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"];
+const planner = document.getElementById("planner");
+const todayIndex = new Date().getDay() - 1; // Monday=0
+
+// Load tasks from localStorage
+let tasks = JSON.parse(localStorage.getItem("weeklyTasks")) || {};
+
+// Generate day cards
+daysOfWeek.forEach((day, index) => {
+    const dayCard = document.createElement("div");
+    dayCard.classList.add("day-card");
+    if(index === todayIndex) {
+        dayCard.classList.add("current-day");
+    }
+
+    const dayTitle = document.createElement("h2");
+    dayTitle.textContent = day;
+
+    const taskList = document.createElement("ul");
+    taskList.classList.add("task-list");
+
+    // Load saved tasks
+    if (tasks[day]) {
+        tasks[day].forEach(task => {
+            const li = createTaskElement(task.text, task.done, day);
+            taskList.appendChild(li);
+        });
+    }
+
+    // Add task input
+    const addTaskDiv = document.createElement("div");
+    addTaskDiv.classList.add("add-task");
+    const input = document.createElement("input");
+    input.type = "text";
+    input.placeholder = "Add a task...";
+
+    const btn = document.createElement("button");
+    btn.textContent = "+";
+    btn.addEventListener("click", () => {
+        if (input.value.trim() !== "") {
+            const li = createTaskElement(input.value, false, day);
+            taskList.appendChild(li);
+            saveTask(day, input.value, false);
+            input.value = "";
+        }
+    });
+
+    addTaskDiv.appendChild(input);
+    addTaskDiv.appendChild(btn);
+
+    dayCard.appendChild(dayTitle);
+    dayCard.appendChild(taskList);
+    dayCard.appendChild(addTaskDiv);
+    planner.appendChild(dayCard);
+});
+
+function createTaskElement(text, done, day) {
+    const li = document.createElement("li");
+    li.classList.add("task");
+    if(done) li.classList.add("done");
+
+    const leftDiv = document.createElement("div");
+    leftDiv.style.display = "flex";
+    leftDiv.style.alignItems = "center";
+
+    const checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.checked = done;
+    checkbox.addEventListener("change", () => {
+        li.classList.toggle("done");
+        updateTaskStatus(day, text, checkbox.checked);
+    });
+
+    const span = document.createElement("span");
+    span.textContent = text;
+
+    leftDiv.appendChild(checkbox);
+    leftDiv.appendChild(span);
+
+    const deleteBtn = document.createElement("button");
+    deleteBtn.textContent = "Delete";
+    deleteBtn.classList.add("delete-btn");
+    deleteBtn.addEventListener("click", () => {
+        li.remove();
+        deleteTask(day, text);
+    });
+
+    li.appendChild(leftDiv);
+    li.appendChild(deleteBtn);
+
+    return li;
+}
+
+function saveTask(day, text, done) {
+    if (!tasks[day]) tasks[day] = [];
+    tasks[day].push({ text, done });
+    localStorage.setItem("weeklyTasks", JSON.stringify(tasks));
+}
+
+function updateTaskStatus(day, text, done) {
+    tasks[day] = tasks[day].map(task =>
+        task.text === text ? { text, done } : task
+    );
+    localStorage.setItem("weeklyTasks", JSON.stringify(tasks));
+}
+
+function deleteTask(day, text) {
+    tasks[day] = tasks[day].filter(task => task.text !== text);
+    localStorage.setItem("weeklyTasks", JSON.stringify(tasks));
+}
+</script>
+
+</body>
+</html>

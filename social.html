@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Social Story Library</title>
+  <style>
+    :root {
+      --dark-purple: #4a148c;
+      --accent: #6a1b9a;
+      --light-blue-start: #cce7ff;
+      --light-blue-end: #f7f2ff;
+      --card: #ffffffcc;
+      --muted: #6b6b6b;
+      --success: #4caf50;
+    }
+    html, body {
+      height: 100%;
+      margin: 0;
+      font-family: 'Nunito', system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;
+    }
+    body {
+      background: linear-gradient(135deg, var(--light-blue-start), var(--light-blue-end));
+      color: #222;
+      -webkit-font-smoothing: antialiased;
+    }
+    header {
+      background: var(--dark-purple);
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
+    }
+    header h1 {
+      margin: 0;
+      font-size: 1.5rem;
+    }
+    .topbar {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      padding: 12px;
+      background: transparent;
+    }
+    .tab-btn {
+      background: var(--dark-purple);
+      color: white;
+      border: none;
+      padding: 10px 14px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 700;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+    }
+    .tab-btn[aria-pressed="true"] {
+      background: var(--accent);
+      transform: scale(1.02);
+    }
+    main {
+      max-width: 1100px;
+      margin: 20px auto;
+      padding: 0 16px;
+    }
+    .panel {
+      display: none;
+    }
+    .panel.active {
+      display: block;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 16px;
+    }
+    .card {
+      background: var(--card);
+      border-radius: 14px;
+      padding: 18px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+      min-height: 120px;
+    }
+
+    /* Social stories */
+    .stories-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 10px;
+      margin-top: 8px;
+    }
+    .story-card {
+      background: #fff;
+      padding: 12px;
+      border-radius: 10px;
+      text-align: left;
+      border: 1px solid rgba(0, 0, 0, 0.04);
+    }
+    .story-card h3 {
+      margin: 0 0 8px 0;
+      color: var(--dark-purple);
+    }
+    .story-view {
+      padding: 12px;
+      background: #fff;
+      border-radius: 12px;
+      border: 1px solid rgba(0, 0, 0, 0.04);
+    }
+
+    /* forms */
+    label {
+      display: block;
+      text-align: left;
+      font-weight: 700;
+      margin-top: 8px;
+    }
+    input[type="text"],
+    textarea {
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      font-size: 1rem;
+    }
+    textarea {
+      min-height: 80px;
+      resize: vertical;
+    }
+    .muted-small {
+      color: var(--muted);
+      font-size: 0.875rem;
+      margin-top: 6px;
+    }
+
+    footer {
+      max-width: 1100px;
+      margin: 30px auto 80px auto;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 420px) {
+      .circle {
+        width: 170px;
+        height: 170px;
+      }
+      .time-display {
+        font-size: 1.2rem;
+        padding: 8px 12px;
+      }
+    }
+    .btn{background:var(--dark-purple);color:white;padding:10px 14px;border-radius:10px;border:none;cursor:pointer;font-weight:700;}
+    .btn.secondary{background:#eee;color:var(--dark-purple);font-weight:700;border:2px solid rgba(0,0,0,0.05);}
+  </style>
+</head>
+<body>
+  <main>
+    <section id="stories" class="panel active" aria-labelledby="Social Stories">
+      <div class="grid">
+        <div class="card" role="region" aria-label="Add story">
+          <h2 style="color:var(--dark-purple);margin:0 0 8px 0">Add Social Story</h2>
+
+          <label for="storyTitle">Title</label>
+          <input id="storyTitle" type="text" placeholder="e.g. Going to the doctor" />
+
+          <label for="storyImage" class="small">Optional cover image URL</label>
+          <input id="storyImage" type="text" placeholder="https://..." />
+
+          <label for="storyContent">Story content (one paragraph per line)</label>
+          <textarea id="storyContent" placeholder="Write short clear sentences. Press Enter for new paragraph."></textarea>
+
+          <div style="display:flex;gap:8px;justify-content:center;margin-top:12px;">
+            <button class="btn" id="addStoryBtn">Add Story</button>
+            <button class="btn secondary" id="clearStories">Clear All</button>
+          </div>
+          <div class="muted-small">Stories are saved locally and can be read aloud.</div>
+        </div>
+
+        <div class="card" role="region" aria-label="Your stories">
+          <h2 style="color:var(--dark-purple);margin:0 0 8px 0">Your Stories</h2>
+          <div class="stories-list" id="storiesList"></div>
+        </div>
+      </div>
+
+      <div id="storyView" class="card" style="display:none;max-width:800px;margin:18px auto;">
+        <button class="btn secondary" id="closeStory">Close</button>
+        <h2 id="storyViewTitle" style="color:var(--dark-purple);"></h2>
+        <img id="storyViewImage" alt="" style="max-width:100%;border-radius:10px;margin-top:8px;display:none;" />
+        <div id="storyViewContent" style="margin-top:12px;text-align:left;"></div>
+        <div style="text-align:center;margin-top:12px;">
+          <button class="btn" id="readStoryBtn">Read Aloud</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>Made for calm, clarity, and confidence • Data stored locally in your browser</footer>
+
+  <script>
+    const storiesListEl = document.getElementById('storiesList');
+    const storyView = document.getElementById('storyView');
+    const storyViewTitle = document.getElementById('storyViewTitle');
+    const storyViewImage = document.getElementById('storyViewImage');
+    const storyViewContent = document.getElementById('storyViewContent');
+
+    let stories = JSON.parse(localStorage.getItem('stories_v1') || '[]');
+
+    document.getElementById('addStoryBtn').addEventListener('click', () => {
+      const title = document.getElementById('storyTitle').value.trim();
+      const image = document.getElementById('storyImage').value.trim();
+      const contentRaw = document.getElementById('storyContent').value.trim();
+
+      if (!title || !contentRaw) return alert('Please add a title and content.');
+
+      const paras = contentRaw
+        .split(/\n+/)
+        .map((p) => p.trim())
+        .filter(Boolean);
+
+      stories.push({ id: Date.now(), title, image: image || '', paras });
+      localStorage.setItem('stories_v1', JSON.stringify(stories));
+
+      // Clear inputs
+      document.getElementById('storyTitle').value = '';
+      document.getElementById('storyImage').value = '';
+      document.getElementById('storyContent').value = '';
+
+      renderStories();
+    });
+
+    document.getElementById('clearStories').addEventListener('click', () => {
+      if (confirm('Clear all stories?')) {
+        stories = [];
+        localStorage.setItem('stories_v1', '[]');
+        renderStories();
+      }
+    });
+
+    function renderStories() {
+      storiesListEl.innerHTML = '';
+      if (stories.length === 0) {
+        storiesListEl.innerHTML = '<div class="small">No stories yet — add one on the left.</div>';
+        return;
+      }
+      stories.forEach((s, i) => {
+        const card = document.createElement('div');
+        card.className = 'story-card';
+        card.innerHTML = `<h3>${escapeHtml(s.title)}</h3>
+          <div class="small">${s.paras.length} paragraph(s)</div>
+          <div style="margin-top:10px;display:flex;gap:8px">
+            <button class="btn" onclick="openStory(${i})">Open</button>
+            <button class="btn secondary" onclick="deleteStory(${i})">Delete</button>
+          </div>`;
+        storiesListEl.appendChild(card);
+      });
+    }
+
+    function openStory(i) {
+      const s = stories[i];
+      storyViewTitle.textContent = s.title;
+      if (s.image) {
+        storyViewImage.src = s.image;
+        storyViewImage.style.display = 'block';
+      } else {
+        storyViewImage.style.display = 'none';
+      }
+      storyViewContent.innerHTML = s.paras.map((p) => `<p style="margin:10px 0">${escapeHtml(p)}</p>`).join('');
+      storyView.style.display = 'block';
+      storyView.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    document.getElementById('closeStory').addEventListener('click', () => (storyView.style.display = 'none'));
+
+    document.getElementById('readStoryBtn').addEventListener('click', () => {
+      if (!('speechSynthesis' in window))
+        return alert('Speech synthesis not supported in this browser.');
+
+      const text = Array.from(storyViewContent.querySelectorAll('p'))
+        .map((p) => p.textContent)
+        .join(' ');
+
+      const utter = new SpeechSynthesisUtterance(text);
+      utter.rate = 0.95;
+      speechSynthesis.cancel();
+      speechSynthesis.speak(utter);
+    });
+
+    function deleteStory(i) {
+      if (!confirm('Delete this story?')) return;
+      stories.splice(i, 1);
+      localStorage.setItem('stories_v1', JSON.stringify(stories));
+      renderStories();
+      storyView.style.display = 'none';
+    }
+
+    // Utility function for escaping HTML to avoid injection
+    function escapeHtml(s) {
+      return String(s).replace(/[&<>"']/g, (m) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m]));
+    }
+
+    // Initial render
+    renderStories();
+
+    // Optional: Set focus on first input or button on page load
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('storyTitle').focus();
+    });
+  </script>
+</body>
+</html>

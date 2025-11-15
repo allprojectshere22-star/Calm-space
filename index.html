@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tamil Romantic Songs</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Merienda:wght@300..900&display=swap');
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #1a1a2e;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    h1 {
+      margin: 40px 0 60px;
+      font-size: 2.5em;
+      color: #f7d0ff;
+      font-family: "Merienda", cursive;
+      text-shadow: 0 0 15px rgba(255,182,255,0.8);
+    }
+
+    .grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+      max-width: 1200px;
+      padding: 20px;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.05);
+      border-radius: 12px;
+      width: 260px;
+      padding: 15px;
+      box-shadow: 0 0 15px rgba(255,182,255,0.2);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .card img {
+      width: 160px;
+      height: 160px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 3px solid #e46eff;
+    }
+
+    .card h3 {
+      margin: 15px 0 5px;
+      font-size: 1.2em;
+      color: #ffb3f7;
+    }
+
+    .card p {
+      font-size: 0.9em;
+      text-align: center;
+      color: #ccc;
+      margin-bottom: 10px;
+    }
+
+    .audio-player {
+      width: 100%;
+      background: #e6e6fa;
+      border-radius: 8px;
+      padding: 8px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .audio-player button {
+      background: #d9b3ff;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      color: #333;
+      font-weight: bold;
+    }
+
+    .audio-player button:hover {
+      background: #c090ff;
+    }
+
+    .progress {
+      flex: 1;
+      height: 6px;
+      background: #ccc;
+      border-radius: 5px;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .progress-filled {
+      background: #a64dff;
+      height: 100%;
+      width: 0%;
+      border-radius: 5px;
+    }
+
+    audio {
+      display: none;
+    }
+
+    footer {
+      margin: 40px 0;
+      font-size: 0.8em;
+      color: #aaa;
+    }
+  </style>
+</head>
+<body>
+
+<h1>🎶 Tamil Romantic Songs</h1>
+
+<div class="grid">
+
+  <div class="card">
+    <img src="images/ennodu.jpg" alt="Munbe Vaa">
+    <h3>Munbe Vaa</h3>
+    <p>Sillunu Oru Kaadhal</p>
+    <div class="audio-player">
+      <button class="play-btn">Play</button>
+      <div class="progress"><div class="progress-filled"></div></div>
+      <audio src="audio/jhope  Jung Kook - i wonder.mp3"></audio>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="images/vaseegara.jpg" alt="Vaseegara">
+    <h3>Vaseegara</h3>
+    <p>Minnale</p>
+    <div class="audio-player">
+      <button class="play-btn">Play</button>
+      <div class="progress"><div class="progress-filled"></div></div>
+      <audio src="audio/vaseegara.mp3"></audio>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="images/enna_solla.jpg" alt="Enna Solla">
+    <h3>Enna Solla</h3>
+    <p>Thanga Magan</p>
+    <div class="audio-player">
+      <button class="play-btn">Play</button>
+      <div class="progress"><div class="progress-filled"></div></div>
+      <audio src="audio/enna_solla.mp3"></audio>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="images/kaadhal_rendu.jpg" alt="Kadhal Rendu">
+    <h3>Kaadhal Rendu</h3>
+    <p>Aayirathil Oruvan</p>
+    <div class="audio-player">
+      <button class="play-btn">Play</button>
+      <div class="progress"><div class="progress-filled"></div></div>
+      <audio src="audio/kaadhal_rendu.mp3"></audio>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="images/azhagiye.jpg" alt="Azhagiye">
+    <h3>Azhagiye</h3>
+    <p>Kaatru Veliyidai</p>
+    <div class="audio-player">
+      <button class="play-btn">Play</button>
+      <div class="progress"><div class="progress-filled"></div></div>
+      <audio src="audio/azhagiye.mp3"></audio>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="images/pookkal_pookkum.jpg" alt="Pookkal Pookkum">
+    <h3>Pookkal Pookkum</h3>
+    <p>Madrasapattinam</p>
+    <div class="audio-player">
+      <button class="play-btn">Play</button>
+      <div class="progress"><div class="progress-filled"></div></div>
+      <audio src="audio/pookkal_pookkum.mp3"></audio>
+    </div>
+  </div>
+
+</div>
+
+<footer>© 2025 Tamil Romance</footer>
+
+<script>
+  const players = document.querySelectorAll('.audio-player');
+
+  players.forEach(player => {
+    const audio = player.querySelector('audio');
+    const playBtn = player.querySelector('.play-btn');
+    const progress = player.querySelector('.progress');
+    const progressFilled = player.querySelector('.progress-filled');
+
+    playBtn.addEventListener('click', () => {
+      document.querySelectorAll('audio').forEach(a => {
+        if (a !== audio) {
+          a.pause();
+          a.currentTime = 0;
+          a.parentElement.querySelector('.play-btn').textContent = 'Play';
+        }
+      });
+
+      if (audio.paused) {
+        audio.play();
+        playBtn.textContent = 'Pause';
+      } else {
+        audio.pause();
+        playBtn.textContent = 'Play';
+      }
+    });
+
+    audio.addEventListener('timeupdate', () => {
+      const percent = (audio.currentTime / audio.duration) * 100;
+      progressFilled.style.width = percent + '%';
+    });
+
+    progress.addEventListener('click', (e) => {
+      const clickX = e.offsetX;
+      const width = progress.offsetWidth;
+      audio.currentTime = (clickX / width) * audio.duration;
+    });
+
+    audio.addEventListener('ended', () => {
+      playBtn.textContent = 'Play';
+      progressFilled.style.width = '0%';
+    });
+  });
+</script>
+
+</body>
+</html>
