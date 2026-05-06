@@ -1,12 +1,5 @@
 # Autism-Friendly Web Interface
 
-![Accessibility](https://img.shields.io/badge/Accessibility-High-green?style=for-the-badge)
-![HCI-Based](https://img.shields.io/badge/HCI-Based-Yes-blue?style=for-the-badge)
-![User-Centered Design](https://img.shields.io/badge/User-Centered%20Design-Implemented-purple?style=for-the-badge)
-![Status](https://img.shields.io/badge/Status-Completed-success?style=for-the-badge)
-
----
-
 ## Project Description
 
 This website is designed for individuals with autism based on Human-Computer Interaction (HCI) principles. The goal is to reduce sensory overload and provide a calm, structured, and accessible online environment.
