@@ -62,15 +62,3 @@ The interface focuses on clarity, readability, and predictable navigation to imp
 npm install
 npm start
 ```
-
----
-
-## Author
-
-Nissi Fedora X
-Full Stack Developer
-Chennai
-
----
-
-If you would like, I can also add your GitHub link and live website link properly formatted inside this README.
